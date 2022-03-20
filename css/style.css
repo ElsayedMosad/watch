@@ -960,7 +960,7 @@ ul {
   padding: 4.5em 1em 0;
   text-align: center;
   color: var(--main-text-color);
-  font-size: 0.8em;
+  font-size: 0.6em;
   position: relative;
 }
 .footer .copy::before {
@@ -979,12 +979,18 @@ ul {
     grid-template-columns: repeat(2, 1fr);
     gap: 2em;
   }
+  .footer .copy {
+    font-size: 0.8em;
+  }
 }
 @media (min-width: 992px) {
   .footer .container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2em;
+  }
+  .footer .copy {
+    font-size: 1em;
   }
 }
 
