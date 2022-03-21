@@ -1053,7 +1053,10 @@ ul {
   font-weight: 600;
 }
 .shop-menu .shop-items {
-  height: 70vh;
+  height: 65vh;
+  overflow-y: visible;
+}
+.shop-items.shop-items-scroll {
   overflow-y: scroll;
 }
 .shop-menu .shop-item {
@@ -1114,3 +1117,14 @@ ul {
   }
 }
 /* End card menu */
+
+
+/* Start scroll bar  */
+::-webkit-scrollbar {
+  width: 0.5em;
+  background-color: rgb(189, 189, 189);
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(43, 43, 43);
+}
+/* End scroll bar  */

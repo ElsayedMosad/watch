@@ -73,7 +73,6 @@ var mySwiperReview = new Swiper(".mySwiperReview", {
   },
 });
 
-
 const sections = document.querySelectorAll("Section");
 const scrollUp = document.querySelector(".scroll-up");
 
@@ -126,9 +125,6 @@ var swiper = new Swiper(".mySwiperNew", {
   },
 });
 
-
-
-
 // card shopping
 const carts = document.querySelectorAll(".cart");
 const values = document.querySelectorAll(".card-value");
@@ -149,7 +145,7 @@ shopClose.addEventListener("click", () => {
   shopMenu.classList.remove("play-shop");
 });
 
-// addcart to shop menu on click add to cart 
+// addcart to shop menu on click add to cart
 addCarts.forEach(function (e, index) {
   e.addEventListener("click", function () {
     let imageForCart = carts[index].querySelector("img").getAttribute("src");
@@ -158,9 +154,9 @@ addCarts.forEach(function (e, index) {
     createShopItem(imageForCart, nameForCart, valueForCart);
     // add event delete to all items
     deleteCart();
+    scrollShopItems()
   });
 });
-
 
 // delete cart item on click delete icon
 function deleteCart() {
@@ -218,11 +214,21 @@ function createShopItem(srcImg, watchName, watchValue) {
   </button>
   <button class="delete-shop-item">
     <i class='bx bx-trash-alt'></i>
-  </button>
+    </button>
   `;
   shopData.appendChild(shopNum);
 }
 
+// add scroll to shop-items
+function scrollShopItems() {
+  // allShopItem = document.querySelectorAll(".shop-item");
+  // console.log(allShopItem.length);
+  // console.log(allShopItem);
+  if (allShopItem.length > 2) {
+    shopItems.classList.add("shop-items-scroll");
+  } else {
+    shopItems.classList.remove("shop-items-scroll");
+  }
+}
 
 // createShopItem("images/product1.png", "rolex gold", "$126");
-
