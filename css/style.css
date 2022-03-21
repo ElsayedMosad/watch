@@ -7,7 +7,10 @@
   --sec-color: rgb(31, 31, 31);
   --main-text-color: #3d3d3d;
   --shadow-text-color: rgba(40, 37, 37, 10%);
-  --border-color: rgb(240, 240, 240);
+  /* --border-color: rgb(240, 240, 240); */
+  --border-color: rgb(231, 231, 231);
+
+
   --qoute-color: rgb(252, 252, 252);
   --constant-color: rgb(255, 181, 102);
   --head-text-color: rgb(38, 38, 38);
@@ -1014,3 +1017,100 @@ ul {
 .scroll-up:hover {
   background-color: var(--main-color);
 }
+/* Start card menu */
+.shop-menu {
+  position: fixed;
+  background-color: rgb(212, 160, 160);
+  background-color: var(--main-color);
+  min-height: 100vh;
+  width: 25em;
+  top: 0;
+  right: -100%;
+  z-index: 1000;
+  padding: 1em;
+  transition: right 0.3s ease-in-out;
+}
+.shop-menu.play-shop {
+  right: 0;
+  /* left: 0; */
+}
+
+.shop-menu .close-shop {
+  text-align: right;
+  padding: 0.2em;
+}
+.shop-menu .close-shop i {
+  font-size: 2em;
+  color: var(--sec-color);
+  padding: 0.1em;
+  cursor: pointer;
+}
+.shop-menu .shop-head {
+  text-align: center;
+  color: var(--sec-color);
+  margin: 0.5em 0 1em;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+.shop-menu .shop-items {
+  height: 70vh;
+  overflow-y: scroll;
+}
+.shop-menu .shop-item {
+  margin-bottom: 1em;
+  padding: 1em;
+  display: flex;
+}
+.shop-item .shop-img {
+  width: 6em;
+  padding: .7em 1.2em;
+  background-color: var(--qoute-color);
+  border: 1px solid var(--border-color);
+  margin-right: 0.5em;
+}
+.shop-item .shop-data {
+  padding: 0.5em;
+}
+.shop-item .shop-data .shop-name{
+  margin-bottom: 0.6em;
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--sec-color);
+}
+.shop-item .shop-value {
+  display: block;
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--constant-color);
+  margin-bottom: 1.3em;
+}
+.shop-item .shop-num {
+  display: flex;
+  align-items: center;
+}
+.shop-item .shop-num .increase,
+.shop-item .shop-num .decrease{
+  padding: 0.3em;
+  font-size: 1em;
+  color: var(--constant-color);
+  background-color: var(--qoute-color);
+  border: 1px solid var(--border-color);
+}
+.shop-item .counter {
+  color: var(--main-text-color);
+  padding: 0.3em;
+  font-size: 1em;
+  margin: 0 0.6em;
+}
+.shop-item .delete-shop-item {
+  padding: 0.35em;
+  font-size: 1.2em;
+  color: var(--constant-color);
+  margin-left: 2em;
+}
+@media (max-width: 768px) {
+  .shop-menu {
+    width: 100%;
+  }
+}
+/* End card menu */
