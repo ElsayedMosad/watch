@@ -3,15 +3,13 @@
 
 /* Start variables  */
 :root {
-  --main-color: rgb(252, 252, 252);
-  --sec-color: rgb(31, 31, 31);
-  --main-text-color: #3d3d3d;
-  --shadow-text-color: rgba(40, 37, 37, 10%);
-  /* --border-color: rgb(240, 240, 240); */
-  --border-color: rgb(231, 231, 231);
+  --main-color: rgb(31, 31, 31);
+  --sec-color: rgb(252, 252, 252);
+  --main-text-color: #bfbfbf;
+  --shadow-text-color: #2a2a2a;
+  --border-color: rgb(51, 51, 51);
+  --qoute-color: #2b2b2b;
 
-
-  --qoute-color: rgb(252, 252, 252);
   --constant-color: rgb(255, 181, 102);
   --head-text-color: rgb(38, 38, 38);
   --color-but: #fff;
@@ -25,12 +23,12 @@
 }
 /* Body Dark mood */
 body.mood-changer {
-  --main-color: rgb(31, 31, 31);
-  --sec-color: rgb(252, 252, 252);
-  --main-text-color: #bfbfbf;
-  --shadow-text-color: #2a2a2a;
-  --border-color: rgb(51, 51, 51);
-  --qoute-color: #2b2b2b;
+  --main-color: rgb(252, 252, 252);
+  --sec-color: rgb(31, 31, 31);
+  --main-text-color: #3d3d3d;
+  --shadow-text-color: rgba(40, 37, 37, 10%);
+  --border-color: rgb(231, 231, 231);
+  --qoute-color: rgb(252, 252, 252);
 }
 /* Global rules */
 * {
@@ -216,7 +214,7 @@ ul {
   }
   .x-menu i {
     cursor: pointer;
-    padding: 0.2em;
+    padding: 0.02em;
   }
   .header .nav-item {
     text-align: center;
@@ -1068,8 +1066,6 @@ ul {
   height: 65vh;
   overflow-y: auto;
 }
-/* .shop-items.shop-items-scroll {
-} */
 .shop-menu .shop-item {
   margin-bottom: 1em;
   padding: 1em;

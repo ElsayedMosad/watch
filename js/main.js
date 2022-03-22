@@ -18,13 +18,13 @@ const body = document.querySelector("body");
 
 // Mood localStorage
 if (localStorage.getItem("mood")) {
-  if (localStorage.getItem("mood") === "moon") {
-    changeToMoon();
+  if (localStorage.getItem("mood") === "sun") {
+    changeToSun();
   }
 }
 // Mood click
 mood.addEventListener("click", function () {
-  if (!body.classList.contains("mood-changer")) {
+  if (body.classList.contains("mood-changer")) {
     changeToMoon();
     localStorage.setItem("mood", "moon");
   } else {
@@ -35,11 +35,11 @@ mood.addEventListener("click", function () {
 
 function changeToSun() {
   mood.innerHTML = `<i class='bx bx-sun' ></i>`;
-  body.classList.remove("mood-changer");
+  body.classList.add("mood-changer");
 }
 function changeToMoon() {
   mood.innerHTML = `<i class="bx bx-moon"></i>`;
-  body.classList.add("mood-changer");
+  body.classList.remove("mood-changer");
 }
 
 // play menu links
@@ -80,8 +80,8 @@ window.addEventListener("scroll", () => {
   let scrollPosition = document.documentElement.scrollTop;
   sections.forEach((sec, index) => {
     if (
-      scrollPosition + 100 >= sec.offsetTop &&
-      scrollPosition <= sec.offsetTop + sec.offsetHeight
+      scrollPosition + 200 >= sec.offsetTop &&
+      scrollPosition <= sec.offsetTop + sec.offsetHeight + 200
     ) {
       menuLinks.forEach((e) => {
         if (e.classList.contains("active")) {
@@ -220,3 +220,4 @@ function createShopItem(srcImg, watchName, watchValue) {
 }
 
 
+// localStorage.clear()
