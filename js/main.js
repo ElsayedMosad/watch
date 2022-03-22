@@ -145,16 +145,14 @@ shopClose.addEventListener("click", () => {
   shopMenu.classList.remove("play-shop");
 });
 
-// addcart to shop menu on click add to cart
+// addcart to shop menu on click add to cart && apply deleteCart again
 addCarts.forEach(function (e, index) {
   e.addEventListener("click", function () {
     let imageForCart = carts[index].querySelector("img").getAttribute("src");
     let nameForCart = carts[index].querySelector(".cart-name").textContent;
     let valueForCart = carts[index].querySelector(".cart-value").textContent;
     createShopItem(imageForCart, nameForCart, valueForCart);
-    // add event delete to all items
     deleteCart();
-    scrollShopItems()
   });
 });
 
@@ -167,6 +165,8 @@ function deleteCart() {
       allShopItem[index].remove();
     });
   });
+  deletes = document.querySelectorAll(".delete-shop-item");
+  allShopItem = document.querySelectorAll(".shop-item");
 }
 deleteCart();
 
@@ -219,16 +219,4 @@ function createShopItem(srcImg, watchName, watchValue) {
   shopData.appendChild(shopNum);
 }
 
-// add scroll to shop-items
-function scrollShopItems() {
-  // allShopItem = document.querySelectorAll(".shop-item");
-  // console.log(allShopItem.length);
-  // console.log(allShopItem);
-  if (allShopItem.length > 2) {
-    shopItems.classList.add("shop-items-scroll");
-  } else {
-    shopItems.classList.remove("shop-items-scroll");
-  }
-}
 
-// createShopItem("images/product1.png", "rolex gold", "$126");

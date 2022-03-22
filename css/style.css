@@ -420,6 +420,18 @@ ul {
   padding: 1em 1.5em;
   height: fit-content;
 }
+@media (max-width: 768px) {
+  .featured {
+    font-size: 14px;
+  }
+  .featured .container {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+  .featured .feat-item {
+    padding: 1.5em 0.5em;
+  }
+}
 @media (max-width: 320px) {
   .featured {
     font-size: 10px;
@@ -1054,11 +1066,10 @@ ul {
 }
 .shop-menu .shop-items {
   height: 65vh;
-  overflow-y: visible;
+  overflow-y: auto;
 }
-.shop-items.shop-items-scroll {
-  overflow-y: scroll;
-}
+/* .shop-items.shop-items-scroll {
+} */
 .shop-menu .shop-item {
   margin-bottom: 1em;
   padding: 1em;
