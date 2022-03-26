@@ -1039,11 +1039,10 @@ ul {
   z-index: 1000;
   padding: 1em;
   transition: right 0.3s ease-in-out;
-  right: 0;
+  /* right: 0; */
 }
 .shop-menu.play-shop {
   right: 0;
-  /* left: 0; */
 }
 
 .shop-menu .close-shop {
