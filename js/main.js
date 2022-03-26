@@ -125,9 +125,9 @@ var swiper = new Swiper(".mySwiperNew", {
   },
 });
 
-// card shopping
+// cart shopping
 const carts = document.querySelectorAll(".cart");
-const values = document.querySelectorAll(".card-value");
+const values = document.querySelectorAll(".cart-value");
 const addCarts = document.querySelectorAll(".add-cart");
 let deletes = document.querySelectorAll(".delete-shop-item");
 let allShopItem = document.querySelectorAll(".shop-item");
@@ -136,6 +136,13 @@ const shop = document.getElementById("shop");
 const shopMenu = document.querySelector(".shop-menu");
 const shopClose = shopMenu.querySelector(".close-shop");
 const shopItems = document.querySelector(".shop-items");
+let shopValues = document.querySelectorAll(".shop-value");
+let increases = document.querySelectorAll(".increase");
+let decreases = document.querySelectorAll(".decrease");
+let counters = document.querySelectorAll(".counter");
+let totalItem = document.querySelectorAll(".total-shop");
+
+// console.log(totalItem);
 
 // play shopmenu
 shop.addEventListener("click", () => {
@@ -153,6 +160,8 @@ addCarts.forEach(function (e, index) {
     let valueForCart = carts[index].querySelector(".cart-value").textContent;
     createShopItem(imageForCart, nameForCart, valueForCart);
     deleteCart();
+    increaseCounter();
+    decreaseCounter();
   });
 });
 
@@ -205,19 +214,65 @@ function createShopItem(srcImg, watchName, watchValue) {
   let shopNum = document.createElement("div");
   shopNum.classList.add("shop-num");
   shopNum.innerHTML = `
-  <button class="increase">
+  <button class="decrease">
   <i class='bx bx-minus' ></i>
   </button>
   <div class="counter">1</div>
-  <button class="decrease">
-    <i class='bx bx-plus' ></i>
+  <button class="increase">
+  <i class='bx bx-plus' ></i>
   </button>
   <button class="delete-shop-item">
-    <i class='bx bx-trash-alt'></i>
-    </button>
+  <i class='bx bx-trash-alt'></i>
+  </button>
   `;
+  let totalShop = document.createElement("div");
+  totalShop.classList.add("total-shop");
+  totalShop.textContent = `Total = ${watchValue}`;
+  shopItem.appendChild(totalShop);
   shopData.appendChild(shopNum);
 }
+// increase on click
+function increaseCounter() {
+  increases = document.querySelectorAll(".increase");
+  counters = document.querySelectorAll(".counter");
+  shopValues = document.querySelectorAll(".shop-value");
+  totalItem = document.querySelectorAll(".total-shop");
+  increases.forEach(function (e, index) {
+    e.addEventListener("click", function () {
+      let valueAfterIcrease = ++counters[index].textContent;
+      totalItem[index].textContent = `Total = $${totalValueAfterIcrease(
+        valueAfterIcrease,
+        shopValues[index].textContent
+      )}`;
+    });
+  });
+}
+increaseCounter();
+function totalValueAfterIcrease(num, theValue) {
+  valueNumber = theValue.match(/\d+/)[0];
+  return valueNumber * num;
+}
 
-
-// localStorage.clear()
+// decrease on click 
+function decreaseCounter() {
+  decreases = document.querySelectorAll(".decrease");
+  counters = document.querySelectorAll(".counter");
+  shopValues = document.querySelectorAll(".shop-value");
+  totalItem = document.querySelectorAll(".total-shop");
+  decreases.forEach(function (e, index) {
+    e.addEventListener("click", function () {
+      if (counters[index].textContent >= 1) {
+        let valueAfterIcrease = --counters[index].textContent;
+        totalItem[index].textContent = `Total = $${totalValueAfterDecrease(
+          valueAfterIcrease,
+          shopValues[index].textContent
+        )}`;
+      }
+    });
+  });
+}
+decreaseCounter();
+function totalValueAfterDecrease(num, theValue) {
+  valueNumber = theValue.match(/\d+/)[0];
+  return valueNumber * num;
+}

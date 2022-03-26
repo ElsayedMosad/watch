@@ -1039,6 +1039,7 @@ ul {
   z-index: 1000;
   padding: 1em;
   transition: right 0.3s ease-in-out;
+  right: 0;
 }
 .shop-menu.play-shop {
   right: 0;
@@ -1067,9 +1068,10 @@ ul {
   overflow-y: auto;
 }
 .shop-menu .shop-item {
-  margin-bottom: 1em;
-  padding: 1em;
+  /* margin-bottom: 1em; */
+  padding: 0.5em 1em;
   display: flex;
+  flex-wrap: wrap;
 }
 .shop-item .shop-img {
   width: 6em;
@@ -1117,6 +1119,17 @@ ul {
   font-size: 1.2em;
   color: var(--constant-color);
   margin-left: 2em;
+}
+.shop-item .total-shop {
+  flex-basis: 60%;
+  justify-content: center;
+  margin: 1em 0;
+  font-size: 1em;
+  color: var(--constant-color);
+  padding: 0.5em 1em;
+  text-align: center;
+  background-color: var(--qoute-color);
+  border: 1px solid var(--border-color);
 }
 @media (max-width: 768px) {
   .shop-menu {
