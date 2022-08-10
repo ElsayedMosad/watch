@@ -92,7 +92,6 @@ window.addEventListener("scroll", () => {
     }
   });
   if (scrollPosition >= 200) {
-    // console.log(scrollPosition)
     scrollUp.classList.add("to-top");
   } else {
     scrollUp.classList.remove("to-top");
@@ -127,22 +126,12 @@ var swiper = new Swiper(".mySwiperNew", {
 
 // cart shopping
 const carts = document.querySelectorAll(".cart");
-const values = document.querySelectorAll(".cart-value");
 const addCarts = document.querySelectorAll(".add-cart");
-let deletes = document.querySelectorAll(".delete-shop-item");
-let allShopItem = document.querySelectorAll(".shop-item");
-
+const shopItems = document.querySelector(".shop-items");
 const shop = document.getElementById("shop");
 const shopMenu = document.querySelector(".shop-menu");
 const shopClose = shopMenu.querySelector(".close-shop");
-const shopItems = document.querySelector(".shop-items");
-let shopValues = document.querySelectorAll(".shop-value");
-let increases = document.querySelectorAll(".increase");
-let decreases = document.querySelectorAll(".decrease");
-let counters = document.querySelectorAll(".counter");
-let totalItem = document.querySelectorAll(".total-shop");
-
-// console.log(totalItem);
+const totalShop = document.querySelector(".total-shop");
 
 // play shopmenu
 shop.addEventListener("click", () => {
@@ -152,127 +141,110 @@ shopClose.addEventListener("click", () => {
   shopMenu.classList.remove("play-shop");
 });
 
-// addcart to shop menu on click add to cart && apply deleteCart again
+let arrCurds = [];
+addCarts.forEach((e, index) => {
+  e.setAttribute("data-id", index);
+});
+
+if (localStorage.arrCurds) {
+  arrCurds = JSON.parse(localStorage.arrCurds);
+  createCurd();
+}
+function checkIdNotUse(id) {
+  for (let i = 0;i < arrCurds.length;i++) {
+    if (arrCurds[i].id == id) {
+      return false;
+    }
+  } 
+  return true;
+}
 addCarts.forEach(function (e, index) {
   e.addEventListener("click", function () {
-    let imageForCart = carts[index].querySelector("img").getAttribute("src");
-    let nameForCart = carts[index].querySelector(".cart-name").textContent;
-    let valueForCart = carts[index].querySelector(".cart-value").textContent;
-    createShopItem(imageForCart, nameForCart, valueForCart);
-    deleteCart();
-    increaseCounter();
-    decreaseCounter();
+    if (checkIdNotUse(e.getAttribute("data-id"))) {
+      let imageForCart = carts[index].querySelector("img").getAttribute("src");
+      let nameForCart = carts[index].querySelector(".cart-name").textContent;
+      let valueForCart = carts[index].querySelector(".cart-value").textContent;
+      let objCurd = {
+        id: e.getAttribute("data-id"),
+        img: imageForCart,
+        nums: 1,
+        name: nameForCart,
+        value: valueForCart,
+      };
+      arrCurds.push(objCurd);
+      createCurd();
+      addToLocalStorage();
+    }
   });
 });
 
-// delete cart item on click delete icon
-function deleteCart() {
-  deletes = document.querySelectorAll(".delete-shop-item");
-  allShopItem = document.querySelectorAll(".shop-item");
-  deletes.forEach(function (e, index) {
-    e.addEventListener("click", function () {
-      allShopItem[index].remove();
-    });
+function createCurd() {
+  shopItems.innerHTML = "";
+  for (let i = 0; i < arrCurds.length; i++) {
+    let shopItem = document.createElement("div");
+    shopItem.innerHTML = `
+    <div class="shop-item">
+    <div class="shop-img">
+      <img src="${arrCurds[i].img}" alt="shop item image" />
+    </div>
+    <div class="shop-data">
+      <h3 class="shop-name">${arrCurds[i].name}</h3>
+      <span class="shop-value">${arrCurds[i].value}</span>
+      <div class="shop-num">
+        <button class="decrease"  onclick = "decreaseCounter(${i})">
+          <i class="bx bx-minus"></i>
+        </button>
+        <div class="counter">${arrCurds[i].nums}</div>
+        <button class="increase"  onclick = "increaseCounter(${i})">
+          <i class="bx bx-plus"></i>
+        </button>
+        <button class="delete-shop-item"  onclick = "deleteCart(${i})">
+          <i class="bx bx-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+    `;
+    shopItems.appendChild(shopItem);
+  }
+  getTotalValue();
+}
+
+function addToLocalStorage() {
+  localStorage.setItem("arrCurds", JSON.stringify(arrCurds));
+}
+
+function deleteCart(index) {
+  arrCurds.splice(index, 1);
+  createCurd();
+  localStorage.setItem("arrCurds", JSON.stringify(arrCurds));
+}
+
+function decreaseCounter(index) {
+  let count = document.querySelectorAll(".counter")[index];
+  if (parseInt(count.textContent) != 1) {
+    count.textContent = parseInt(count.textContent) - 1;
+    arrCurds[index].nums = count.textContent;
+    getTotalValue();
+    localStorage.setItem("arrCurds", JSON.stringify(arrCurds));
+  }
+}
+function increaseCounter(index) {
+  let count = document.querySelectorAll(".counter")[index];
+  count.textContent = parseInt(count.textContent) + 1;
+  arrCurds[index].nums = count.textContent;
+  getTotalValue();
+  localStorage.setItem("arrCurds", JSON.stringify(arrCurds));
+}
+
+function getTotalValue() {
+  let z = 0;
+  document.querySelectorAll(".shop-item").forEach((e) => {
+    let value = parseInt(
+      e.querySelector(".shop-value").textContent.match(/\d+/)[0]
+    );
+    let nums = parseInt(e.querySelector(".counter").textContent);
+    z += value * nums;
   });
-  deletes = document.querySelectorAll(".delete-shop-item");
-  allShopItem = document.querySelectorAll(".shop-item");
-}
-deleteCart();
-
-// create shop item
-function createShopItem(srcImg, watchName, watchValue) {
-  let shopItem = document.createElement("div");
-  shopItem.classList.add("shop-item");
-
-  // frist div => .shop-img
-  let shopImg = document.createElement("div");
-  shopImg.classList.add("shop-img");
-  let img = document.createElement("img");
-  img.setAttribute("src", srcImg);
-  img.setAttribute("alt", "shop item image");
-  shopImg.appendChild(img);
-  shopItem.prepend(shopImg);
-  shopItems.appendChild(shopItem);
-
-  // secand div => .shop-data
-  let shopData = document.createElement("div");
-  shopData.classList.add("shop-data");
-  // shop name
-  let shopName = document.createElement("h3");
-  shopName.classList.add("shop-name");
-  let textName = document.createTextNode(watchName);
-  shopName.appendChild(textName);
-  shopData.appendChild(shopName);
-  shopItem.appendChild(shopData);
-
-  let shopValue = document.createElement("span");
-  shopValue.classList.add("shop-value");
-  let textVale = document.createTextNode(watchValue);
-  shopValue.appendChild(textVale);
-  shopData.appendChild(shopValue);
-
-  let shopNum = document.createElement("div");
-  shopNum.classList.add("shop-num");
-  shopNum.innerHTML = `
-  <button class="decrease">
-  <i class='bx bx-minus' ></i>
-  </button>
-  <div class="counter">1</div>
-  <button class="increase">
-  <i class='bx bx-plus' ></i>
-  </button>
-  <button class="delete-shop-item">
-  <i class='bx bx-trash-alt'></i>
-  </button>
-  `;
-  let totalShop = document.createElement("div");
-  totalShop.classList.add("total-shop");
-  totalShop.textContent = `Total = ${watchValue}`;
-  shopItem.appendChild(totalShop);
-  shopData.appendChild(shopNum);
-}
-// increase on click
-function increaseCounter() {
-  increases = document.querySelectorAll(".increase");
-  counters = document.querySelectorAll(".counter");
-  shopValues = document.querySelectorAll(".shop-value");
-  totalItem = document.querySelectorAll(".total-shop");
-  increases.forEach(function (e, index) {
-    e.addEventListener("click", function () {
-      let valueAfterIcrease = ++counters[index].textContent;
-      totalItem[index].textContent = `Total = $${totalValueAfterIcrease(
-        valueAfterIcrease,
-        shopValues[index].textContent
-      )}`;
-    });
-  });
-}
-increaseCounter();
-function totalValueAfterIcrease(num, theValue) {
-  valueNumber = theValue.match(/\d+/)[0];
-  return valueNumber * num;
-}
-
-// decrease on click 
-function decreaseCounter() {
-  decreases = document.querySelectorAll(".decrease");
-  counters = document.querySelectorAll(".counter");
-  shopValues = document.querySelectorAll(".shop-value");
-  totalItem = document.querySelectorAll(".total-shop");
-  decreases.forEach(function (e, index) {
-    e.addEventListener("click", function () {
-      if (counters[index].textContent >= 1) {
-        let valueAfterIcrease = --counters[index].textContent;
-        totalItem[index].textContent = `Total = $${totalValueAfterDecrease(
-          valueAfterIcrease,
-          shopValues[index].textContent
-        )}`;
-      }
-    });
-  });
-}
-decreaseCounter();
-function totalValueAfterDecrease(num, theValue) {
-  valueNumber = theValue.match(/\d+/)[0];
-  return valueNumber * num;
+  totalShop.textContent = `Total = $${z}`;
 }

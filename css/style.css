@@ -1119,10 +1119,10 @@ ul {
   color: var(--constant-color);
   margin-left: 2em;
 }
-.shop-item .total-shop {
+.shop-menu .total-shop {
   flex-basis: 60%;
   justify-content: center;
-  margin: 1em 0;
+  margin: 1em;
   font-size: 1em;
   color: var(--constant-color);
   padding: 0.5em 1em;
